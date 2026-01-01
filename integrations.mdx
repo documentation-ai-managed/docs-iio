@@ -1,0 +1,142 @@
+---
+title: Integrations with iio
+description: Connect iio to external tools and services to enhance your documentation process.
+---
+
+## Overview
+
+Connect iio to your favorite tools to automate workflows, sync data, and extend functionality. You can integrate with version control systems, notification services, and automation platforms. Use the iio API for custom connections, set up webhooks for real-time updates, or import/export data in various formats.
+
+<Callout kind="tip">
+  Start with popular integrations for quick wins, then explore the API for bespoke solutions.
+</Callout>
+
+## Popular Integrations
+
+iio supports seamless connections to leading tools. Browse these ready-to-use integrations to supercharge your documentation.
+
+<Columns cols={3}>
+  <Card title="GitHub" icon="github" href="https://github.com/marketplace?type=actions&query=iio">
+    Sync repositories with your iio docs. Automatically update documentation on commits.
+  </Card>
+  <Card title="Slack" icon="message-circle" href="https://slack.com/apps/search?q=iio">
+    Get real-time notifications for doc changes and approvals.
+  </Card>
+  <Card title="Zapier" icon="zap" href="https://zapier.com/apps/iio/integrations">
+    Build no-code automations connecting iio to 5000+ apps.
+  </Card>
+</Columns>
+
+## Webhook Configurations
+
+Set up webhooks to receive events from iio, such as document updates or publish events. Follow these steps to configure a webhook.
+
+<Steps>
+  <Step title="Create Webhook" icon="plus">
+    Navigate to your project settings in the iio dashboard at `https://dashboard.example.com/projects/{projectId}/webhooks`.
+
+    Add a new webhook with your endpoint URL, like `https://your-webhook-url.com/iio-events`.
+  </Step>
+  <Step title="Select Events" icon="settings">
+    Choose events to subscribe to: `doc.updated`, `doc.published`, `comment.added`.
+  </Step>
+  <Step title="Verify and Test" icon="check-circle">
+    iio sends a verification challenge. Respond with the challenge token in your handler.
+
+````javascript
+app.post('/iio-events', (req, res) => {
+  if (req.body.challenge) {
+    res.send(req.body.challenge);
+  }
+  // Handle events
+});
+````
+  </Step>
+</Steps>
+
+## API Usage for Custom Connections
+
+Build custom integrations using the iio REST API at `https://api.example.com/v1`. Authenticate with `Authorization: Bearer YOUR_API_KEY`.
+
+<CodeGroup tabs="JavaScript,Python">
+  ```javascript
+  const response = await fetch('https://api.example.com/v1/docs', {
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    }
+  });
+  const docs = await response.json();
+  console.log(docs);
+  ```
+  ```python
+  import requests
+
+  headers = {
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json'
+  }
+  response = requests.get('https://api.example.com/v1/docs', headers=headers)
+  docs = response.json()
+  print(docs)
+  ```
+</CodeGroup>
+
+<ParamField path="projectId" param-type="string" required="true">
+  Your iio project identifier.
+</ParamField>
+
+<ParamField header="Authorization" param-type="string" required="true">
+  Bearer token for authentication.
+</ParamField>
+
+## Data Import and Export
+
+Import content from external sources or export iio docs for backups and migrations.
+
+<Tabs>
+  <Tab title="Import CSV" icon="upload">
+    Upload CSV files to bulk-create documents.
+
+    <Request tabs="cURL" show-lines="true">
+    ```bash
+    curl -X POST https://api.example.com/v1/import/csv \\
+      -H "Authorization: Bearer YOUR_API_KEY" \\
+      -F "file=@docs.csv"
+    ```
+    </Request>
+  </Tab>
+  <Tab title="Export JSON" icon="download">
+    Retrieve all docs in JSON format.
+
+    <Response show-lines="false">
+    ```json
+    {
+      "docs": [
+        {
+          "id": "doc_123",
+          "title": "Getting Started",
+          "content": "Welcome to iio..."
+        }
+      ]
+    }
+    ```
+    </Response>
+  </Tab>
+</Tabs>
+
+<Expandable title="Advanced Custom Integrations">
+  For complex scenarios, use webhooks with the API. Trigger exports on GitHub pushes or sync with databases.
+
+  ```mermaid
+  sequenceDiagram
+      GitHub->>iio: Push Event (Webhook)
+      iio->>YourApp: Notify
+      YourApp->>iio: API Call (Import)
+      iio->>YourApp: Confirm
+  ```
+</Expandable>
+
+<Callout kind="info">
+  Review API rate limits: `<1000` requests per hour. Upgrade for higher tiers.
+</Callout>

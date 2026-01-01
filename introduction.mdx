@@ -1,0 +1,116 @@
+---
+title: Introduction to iio
+description: Get an overview of iio, a powerful documentation platform for organizing and managing your project documentation spaces.
+---
+
+## What is iio?
+
+iio is a powerful documentation platform that helps you organize and manage all your project documentation in dedicated spaces. You create custom spaces for each project, team, or product, making it easy to keep docs structured and accessible. Whether you document APIs, user guides, or internal wikis, iio scales with your needs.
+
+<Callout kind="info">
+  iio integrates seamlessly with your existing tools like GitHub, Slack, and API endpoints at `https://api.example.com`.
+</Callout>
+
+## Key Benefits for Teams
+
+You benefit from centralized documentation that reduces context-switching and improves collaboration. Teams using iio report 40% faster onboarding and fewer knowledge silos.
+
+- **Version Control**: Track changes with Git integration.
+- **Searchable Content**: Full-text search across all spaces.
+- **Role-Based Access**: Control who sees what with fine-grained permissions.
+- **Embed Anywhere**: Share docs via iframes or public links.
+
+## Core Features at a Glance
+
+<Columns cols={3}>
+  <Card title="Documentation Spaces" icon="folder" href="/quickstart">
+    Create unlimited spaces to organize docs by project or team. Each space supports Markdown, MDX, and custom components.
+  </Card>
+  <Card title="Real-Time Collaboration" icon="users" href="/authentication">
+    Edit docs together with live previews and comments.
+  </Card>
+  <Card title="API-First Management" icon="code" href="/configuration">
+    Manage spaces programmatically using our REST API.
+  </Card>
+</Columns>
+
+## Get Started in Minutes
+
+Follow these steps to set up your first iio space.
+
+<Steps>
+  <Step title="Sign Up" icon="user-plus">
+    Visit `https://dashboard.example.com` and create your account with email or GitHub.
+  </Step>
+  <Step title="Create a Space" icon="plus">
+    Click "New Space" and name it, like "Project Alpha Docs".
+  </Step>
+  <Step title="Add Your First Doc">
+    Upload Markdown files or create new ones directly in the editor.
+  </Step>
+  <Step title="Publish and Share">
+    Make your space public or invite team members via email.
+  </Step>
+</Steps>
+
+## Managing Spaces via API
+
+You interact with iio programmatically for automation.
+
+<CodeGroup tabs="JavaScript,cURL">
+  ```javascript
+  const response = await fetch('https://api.example.com/v1/spaces', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: 'My New Space',
+      description: 'Documentation for project X'
+    })
+  });
+  const space = await response.json();
+  console.log(space.id);
+  ```
+  ```bash
+  curl -X POST https://api.example.com/v1/spaces \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "name": "My New Space",
+      "description": "Documentation for project X"
+    }'
+  ```
+</CodeGroup>
+
+<ParamField path="name" param-type="string" required="true">
+  The display name of your space.
+</ParamField>
+
+<ParamField header="Authorization" param-type="string" required="true">
+  Use `Bearer YOUR_API_KEY` format.
+</ParamField>
+
+## Navigation Guide
+
+Explore key sections of the docs:
+
+<Columns cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Set up your first space and add content.
+  </Card>
+  <Card title="Authentication" icon="shield" href="/authentication">
+    Secure your spaces with API keys and OAuth.
+  </Card>
+  <Card title="Advanced Configuration" icon="settings" href="/configuration">
+    Customize themes, permissions, and integrations.
+  </Card>
+  <Card title="Changelog" icon="git-branch" href="/changelog">
+    Stay updated with the latest releases.
+  </Card>
+</Columns>
+
+<Callout kind="tip">
+  Start with the [Quickstart](/quickstart) guide to build your first space today.
+</Callout>

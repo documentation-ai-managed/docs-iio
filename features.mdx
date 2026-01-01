@@ -1,0 +1,124 @@
+---
+title: iio Features Overview
+description: Dive into the main capabilities of iio to streamline your documentation workflow.
+---
+
+## Overview
+
+iio empowers you to manage project documentation efficiently. Organize content into structured spaces, collaborate seamlessly with teams, track changes with version history, and find information quickly through advanced search. These features help you maintain clear, up-to-date docs without complexity.
+
+<Callout kind="tip">
+  Start by creating a new documentation space to experience these features hands-on.
+</Callout>
+
+## Document Organization Tools
+
+Keep your documentation tidy with folders, tags, and custom hierarchies. You create nested folders to group related pages, assign tags for cross-referencing, and use templates for consistent formatting.
+
+<Columns cols={2}>
+  <Card title="Folders and Nesting" icon="folder" href="#folders">
+    Nest pages deeply for complex projects. Drag and drop to reorganize effortlessly.
+  </Card>
+  <Card title="Tags and Links" icon="tag" href="#tags">
+    Add multiple tags per page. Link pages dynamically using tag-based navigation.
+  </Card>
+</Columns>
+
+```javascript
+// Example: Create a folder structure via API
+const iio = require('iio-sdk');
+const client = new iio.Client({ apiKey: 'YOUR_API_KEY' });
+
+await client.folders.create({
+  name: 'API Reference',
+  parentId: 'root',
+  pages: [
+    { title: 'Endpoints', content: '# API Endpoints\nList your routes here.' }
+  ]
+});
+```
+
+## Collaboration and Editing Features
+
+Invite team members to edit docs in real time. Use comments for feedback, @mentions for notifications, and role-based permissions to control access.
+
+<Tabs>
+  <Tab title="Real-time Editing" icon="edit-3">
+    Multiple users edit simultaneously. Changes appear instantly with cursor indicators.
+
+    <Steps>
+      <Step title="Invite Collaborator" icon="user-plus">
+        Share a space link and assign roles like Editor or Viewer.
+      </Step>
+      <Step title="Live Edit" icon="activity">
+        Open the page. See others' cursors and resolve conflicts automatically.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Comments and Reviews" icon="message-circle">
+    Add inline comments on specific text. Resolve threads as you iterate.
+
+    ```javascript
+    // Post a comment via SDK
+    await client.pages.comments.create('page-id', {
+      body: 'Consider adding examples here.',
+      mentions: ['user@company.com']
+    });
+    ```
+  </Tab>
+</Tabs>
+
+## Version History Management
+
+Track every change with automatic versioning. View diffs, restore previous versions, and compare branches for audits.
+
+<CodeGroup tabs="JavaScript,cURL">
+  ```javascript
+  // Fetch version history
+  const history = await client.pages.history('page-id');
+  console.log(history[0].diff); // Shows added/removed lines
+  ```
+  ```bash
+  curl -H "Authorization: Bearer YOUR_API_KEY" \
+    https://api.example.com/v1/pages/page-id/history
+  ```
+</CodeGroup>
+
+<Expandable title="Restore a Version" default-open="true">
+  Select any version from the history panel and click Restore. iio creates a new version to preserve the current state.
+
+  ```mermaid
+  graph TD
+      A[Current Page] --> B[View History]
+      B --> C[Select Version]
+      C --> D[Restore]
+      D --> A
+  ```
+</Expandable>
+
+## Search and Filtering Options
+
+Search across all docs with full-text indexing. Filter by tags, folders, authors, or date ranges for precise results.
+
+| Filter Type | Description | Example |
+|-------------|-------------|---------|
+| Tags | Match one or more tags | `api, v2` |
+| Folders | Scope to a folder tree | `/guides/*` |
+| Date | Recent changes | `>2024-01-01` |
+| Author | By contributor | `john.doe@company.com` |
+
+<Callout kind="info">
+  Pro tip: Combine filters like `tag:api folder:/reference date:>1w` for weekly API updates.
+</Callout>
+
+<Columns cols={3}>
+  <Card title="Quickstart" icon="zap" href="/quickstart">
+    Set up iio in minutes.
+  </Card>
+  <Card title="Authentication" icon="shield" href="/authentication">
+    Secure your spaces.
+  </Card>
+  <Card title="Changelog" icon="git-branch" href="/changelog">
+    Latest updates.
+  </Card>
+</Columns>

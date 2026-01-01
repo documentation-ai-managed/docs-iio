@@ -1,0 +1,133 @@
+---
+title: iio Changelog
+description: Review the release history of iio, including new features, improvements, and fixes.
+---
+
+## Release History
+
+Track all iio updates here. You find the latest features, improvements, bug fixes, and breaking changes listed by version. Each release includes migration guidance when needed.
+
+<Columns cols={2}>
+  <Card title="Latest" icon="zap" href="#v1-2-0">
+    v1.2.0 - Real-time collaboration and performance boosts.
+  </Card>
+  <Card title="Migration Guide" icon="settings" href="#migration">
+    Steps to upgrade safely.
+  </Card>
+</Columns>
+
+<Update label="2024-10-15" description="v1.2.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added real-time collaboration for shared docs
+- Introduced version history with diff viewer
+- New embeddable components for dynamic content
+
+## Improvements
+
+- Enhanced search with fuzzy matching
+- Optimized rendering for large documents
+- Better mobile responsiveness
+
+## Bug Fixes
+
+- Fixed markdown parsing for nested lists
+- Resolved export issues with custom themes
+- Corrected keyboard shortcuts on macOS
+
+</Update>
+
+<Update label="2024-09-20" description="v1.1.0" tags={["feature", "bugfix"]}>
+
+## New Features
+
+- Custom themes with brand color support (`#3B82F6` default)
+- API endpoints for programmatic doc management
+- Integrated analytics dashboard
+
+## Bug Fixes
+
+- Patched authentication token refresh logic
+- Fixed table rendering in dark mode
+- Improved error handling for invalid YAML frontmatter
+
+</Update>
+
+<Update label="2024-08-10" description="v1.0.0" tags={["feature", "breaking"]}>
+
+## New Features
+
+- Core MDX documentation engine
+- Component library with Callout, Steps, and Cards
+- Full-text search across all pages
+
+## Breaking Changes
+
+- Updated config format from JSON to YAML
+- Removed legacy shortcodes
+
+## Initial Setup
+
+- Basic authentication with `{API_KEY}`
+- Dashboard at `https://dashboard.example.com`
+
+</Update>
+
+## Migration Guide
+
+Upgrade iio smoothly with these steps. Review changes before updating.
+
+<Callout kind="alert">
+  Backup your docs before migrating from v1.0.0 or earlier.
+</Callout>
+
+<Steps>
+  <Step title="Check Compatibility" icon="check-circle">
+    Verify your config uses YAML format.
+  </Step>
+  <Step title="Update Package" icon="download">
+    <CodeGroup tabs="npm,yarn">
+    ````bash
+    npm install iio@latest
+    ````
+    ````bash
+    yarn add iio@latest
+    ````
+    </CodeGroup>
+  </Step>
+  <Step title="Migrate Config" icon="settings">
+    Convert JSON to YAML:
+
+    ````yaml
+    title: "Your Docs"
+    description: "Updated description"
+    theme:
+      primary: "#3B82F6"
+    ````
+  </Step>
+  <Step title="Test Changes" icon="play">
+    Run `iio build` and check for errors.
+  </Step>
+</Steps>
+
+<Expandable title="Advanced Migration" default-open="false">
+  For API users, update endpoints:
+
+  <CodeGroup tabs="JavaScript,Python">
+  ````javascript
+  const response = await fetch('https://api.example.com/v2/docs', {
+    headers: { Authorization: `Bearer ${YOUR_TOKEN}` }
+  });
+  ````
+  ````python
+  import requests
+  response = requests.get('https://api.example.com/v2/docs',
+    headers={'Authorization': f'Bearer {YOUR_TOKEN}'})
+  ````
+  </CodeGroup>
+</Expandable>
+
+## Staying Updated
+
+Subscribe to notifications at `https://dashboard.example.com/notifications` or follow us on GitHub for future releases. You access full release notes via the API at `https://api.example.com/releases`.
